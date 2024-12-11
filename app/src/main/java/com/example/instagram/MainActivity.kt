@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var themeSetting: ThemeSetting
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -63,12 +64,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComposeThemeScreen(
     onItemSelection: (AppTheme) -> Unit,
 ) {
-
     val menuExpand = remember { mutableStateOf(false) }
 
     Scaffold(
@@ -84,58 +85,50 @@ fun ComposeThemeScreen(
                     }
                 },
                 actions = {
-                    IconButton(
-                        onClick = { menuExpand.value = true }
-                    ) {
-                        Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "")
+                    IconButton(onClick = { menuExpand.value = true }) {
+                        Icon(imageVector = Icons.Filled.MoreVert, contentDescription = null)
                     }
 
-                    Column(
-                        modifier = Modifier.wrapContentSize(Alignment.TopStart)
+                    DropdownMenu(
+                        expanded = menuExpand.value,
+                        onDismissRequest = { menuExpand.value = false },
+                        modifier = Modifier.width(250.dp)
                     ) {
-                        DropdownMenu(
-                            expanded = menuExpand.value,
-                            onDismissRequest = { menuExpand.value = false },
-                            modifier = Modifier
-                                .width(200.dp)
-                                .wrapContentSize(Alignment.TopStart)
-                        ) {
-                            DropdownMenuItem(
-                                text = { "Auto" },
-                                onClick = {
-                                    onItemSelection(AppTheme.fromOrdinal(AppTheme.MODE_AUTO.ordinal))
-                                    menuExpand.value = false
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { "Light Mode" },
-                                onClick = {
-                                    onItemSelection(AppTheme.fromOrdinal(AppTheme.MODE_NIGHT.ordinal))
-                                    menuExpand.value = false
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { "Dark" },
-                                onClick = {
-                                    onItemSelection(AppTheme.fromOrdinal(AppTheme.MODE_DAY.ordinal))
-                                    menuExpand.value = false
-                                }
-                            )
-                        }
+                        DropdownMenuItem(
+                            text = { Text("Auto") },
+                            onClick = {
+                                onItemSelection(AppTheme.MODE_AUTO)
+                                menuExpand.value = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Light Mode") },
+                            onClick = {
+                                onItemSelection(AppTheme.MODE_DAY)
+                                menuExpand.value = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Dark") },
+                            onClick = {
+                                onItemSelection(AppTheme.MODE_NIGHT)
+                                menuExpand.value = false
+                            }
+                        )
                     }
                 }
             )
         },
-        content = {
+        content = { paddingValues ->
             Column(
                 modifier = Modifier
+                    .padding(paddingValues)
                     .padding(20.dp)
-                    .padding(it)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "How to Implementation of Dark and Light Theme in Jetpack Compose | Android | Kotlin | Make it Easy")
+                Text(text = "How to Implement Dark and Light Themes in Jetpack Compose | Android | Kotlin | Make it Easy")
             }
         }
     )
