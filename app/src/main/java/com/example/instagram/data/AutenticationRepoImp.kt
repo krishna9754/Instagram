@@ -70,16 +70,14 @@ class AuthenticationRepoImp @Inject constructor(
                 operationSuccessful = true
             }
             if (operationSuccessful) {
-                var userid = auth.currentUser?.uid!!
-                var obj =
-                    User(userName = userName, email = email, userid = userid, password = password)
+                val userid = auth.currentUser?.uid!!
+                val obj = User(userName = userName, email = email, userid = userid, password = password)
                 firestore.collection(Constants.COLLECTION_NAME_USER).document(userid).set(obj)
                     .addOnSuccessListener {
-
                     }.await()
                 emit(Response.Success(operationSuccessful))
             } else {
-                Response.Success(operationSuccessful)
+                emit(Response.Success(operationSuccessful))
             }
         } catch (e: Exception) {
             emit(Response.Error(e.localizedMessage ?: "An Unexpected Error"))

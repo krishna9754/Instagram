@@ -11,6 +11,7 @@ import com.example.instagram.domain.use_case.IsUserAuthentication
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,4 +55,15 @@ object InstagramModule {
         firebaseSignUp = FirebaseSignUp(repo = repo),
         firebaseSignOut = FirebaseSignOut(repo = repo)
     )
+}
+
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class AuthenticationModule {
+
+    // Use @Binds to bind AuthenticationRepo to its implementation
+    @Singleton
+    @Binds
+    abstract fun bindAuthenticationRepo(authRepoImp: AuthenticationRepoImp): AuthenticationRepo
 }

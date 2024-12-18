@@ -7,5 +7,5 @@ class IsUserAuthentication @Inject constructor(
     private val repo: AuthenticationRepo
 ) {
 
-    operator fun invoke() = repo.isUserAuthenticationFirebase()
+    operator fun invoke(): Boolean = repo.isUserAuthenticationFirebase()
 }

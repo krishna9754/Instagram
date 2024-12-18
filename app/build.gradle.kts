@@ -77,6 +77,15 @@ dependencies {
     //Hilt
     implementation (libs.hilt.android)
     kapt (libs.hilt.compiler)
+
+    //compose dependency
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.coil.compose)
+//    implementation(libs.kotlin.coroutines.play.services)
+
+
 }
 
 kapt {

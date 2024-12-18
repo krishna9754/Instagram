@@ -7,12 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.DropdownMenu
@@ -31,8 +31,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.instagram.destination.InstagramNavigation
 import com.example.instagram.mode.AppTheme
 import com.example.instagram.mode.ThemeSetting
+import com.example.instagram.presentation.screen.LogInScreen
 import com.example.instagram.ui.theme.InstagramTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -55,9 +58,7 @@ class MainActivity : ComponentActivity() {
             }
             InstagramTheme(darkTheme = useDarkColor) {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    ComposeThemeScreen(
-                        onItemSelection = { theme -> themeSetting.theme = theme }
-                    )
+                    InstagramNavigation(themeSetting = themeSetting)
                 }
             }
         }
@@ -69,6 +70,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ComposeThemeScreen(
     onItemSelection: (AppTheme) -> Unit,
+    navController: NavController,
+    content: @Composable (PaddingValues) -> Unit
 ) {
     val menuExpand = remember { mutableStateOf(false) }
 
@@ -118,18 +121,12 @@ fun ComposeThemeScreen(
                     }
                 }
             )
-        },
-        content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .padding(20.dp)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "How to Implement Dark and Light Themes in Jetpack Compose | Android | Kotlin | Make it Easy")
-            }
         }
-    )
+    ) { innerPadding ->
+        content(innerPadding)
+    }
 }
+
+//ComposeThemeScreen(
+//onItemSelection = { theme -> themeSetting.theme = theme }
+//)
