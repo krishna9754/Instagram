@@ -115,19 +115,19 @@ fun SignUpScreen(
                     Toast(message = response.message)
                 }
             }
-            Text(
-                text = "Already a User? Sign In",
-                color = androidx.compose.ui.graphics.Color.Blue,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clickable {
-                        navController.navigate(
-                            Screens.LogInScreen.route
-                        ) {
-                            launchSingleTop = true
-                        }
-                    }
-            )
         }
+        Text(
+            text = "Already a User? Sign In",
+            color = androidx.compose.ui.graphics.Color.Blue,
+            modifier = Modifier
+                .padding(8.dp)
+                .clickable {
+                    navController.navigate(
+                        Screens.LogInScreen.route
+                    ) {
+                        launchSingleTop = true
+                    }
+                }
+        )
     }
 }
