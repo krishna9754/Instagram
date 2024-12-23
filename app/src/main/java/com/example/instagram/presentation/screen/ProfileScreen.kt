@@ -14,6 +14,16 @@ fun ProfileScreen(navController: NavHostController) {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.weight(1f)) {
             Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
+            Text(text = "Profile")
         }
         BottomNavigationMenu(seletedItem = BottomNavigationItem.PROFILE, navController = navController)
     }

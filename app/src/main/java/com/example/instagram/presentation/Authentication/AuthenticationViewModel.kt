@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.instagram.domain.use_case.AuthenticationUseCases
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.AuthenticationUseCases
 import com.example.instagram.utils.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

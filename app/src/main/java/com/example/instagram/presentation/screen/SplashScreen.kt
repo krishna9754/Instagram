@@ -12,6 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.instagram.R
@@ -52,7 +54,8 @@ fun SplashScreen(navController: NavController, authenticationViewModel: Authenti
         Image(
             painter = painterResource(id = R.drawable.instagram),
             contentDescription = "Splash Screen",
-            modifier = Modifier.scale(scale.value)
+            modifier = Modifier.scale(scale.value),
+            colorFilter = ColorFilter.tint(Color.Black)
         )
     }
 }

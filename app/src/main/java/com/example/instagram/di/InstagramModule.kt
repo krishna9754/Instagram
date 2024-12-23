@@ -1,13 +1,18 @@
 package com.example.instagram.di
 
 import com.example.instagram.data.AuthenticationRepoImp
+import com.example.instagram.data.UserRepositoryImp
 import com.example.instagram.domain.repo.AuthenticationRepo
-import com.example.instagram.domain.use_case.AuthenticationUseCases
-import com.example.instagram.domain.use_case.FirebaseAuthState
-import com.example.instagram.domain.use_case.FirebaseSignIn
-import com.example.instagram.domain.use_case.FirebaseSignOut
-import com.example.instagram.domain.use_case.FirebaseSignUp
-import com.example.instagram.domain.use_case.IsUserAuthentication
+import com.example.instagram.domain.repo.UserRepository
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.AuthenticationUseCases
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.FirebaseAuthState
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.FirebaseSignIn
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.FirebaseSignOut
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.FirebaseSignUp
+import com.example.instagram.domain.use_case.Authenticatio_use_Cases.IsUserAuthentication
+import com.example.instagram.domain.use_case.user_useCases.GetUserDetails
+import com.example.instagram.domain.use_case.user_useCases.SetUserDetails
+import com.example.instagram.domain.use_case.user_useCases.UserUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -55,6 +60,21 @@ object InstagramModule {
         firebaseSignUp = FirebaseSignUp(repo = repo),
         firebaseSignOut = FirebaseSignOut(repo = repo)
     )
+
+    @Singleton
+    @Provides
+    fun provideUserRepo(firebaseFireStore: FirebaseFirestore) : UserRepository{
+        return UserRepositoryImp(firebaseFireStore = firebaseFireStore)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserUseCase(repository: UserRepository): UserUseCase {
+        return UserUseCase(
+            getUserDetails = GetUserDetails(repository = repository),
+            setUserDetails = SetUserDetails(repository = repository)
+        )
+    }
 }
 
 
