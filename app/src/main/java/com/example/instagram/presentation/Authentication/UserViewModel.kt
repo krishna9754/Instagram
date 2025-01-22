@@ -9,7 +9,7 @@ import com.example.instagram.domain.repo.UserRepository
 import com.example.instagram.domain.use_case.user_useCases.UserUseCase
 import com.example.instagram.utils.Response
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.auth.User
+import com.example.instagram.domain.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,11 +27,31 @@ class UserViewModel @Inject constructor(
      @SuppressLint("RestrictedApi")
      val getUserDate : State<Response<User?>> = _getUserData
 
+    private val _setUserData = mutableStateOf<Response<Boolean>>(Response.Success(false))
+    val setUserData : State<Response<Boolean>> = _setUserData
+
     fun getUserInfo(){
         if(userID!=null){
             viewModelScope.launch {
                 userUseCase.getUserDetails(userID).collect{
-//                    _getUserData.value = it
+                    _getUserData.value = it
+                }
+            }
+        }
+    }
+
+
+    fun setUserInfo(name: String, userName: String, webSiteUrl: String, bio: String){
+        if(userID!=null){
+            viewModelScope.launch {
+                userUseCase.setUserDetails(
+                    name = name,
+                    userid = userID,
+                    userName = userName,
+                    webSiteUrl = webSiteUrl,
+                    bio = bio
+                ).collect {
+                    _setUserData.value = it
                 }
             }
         }

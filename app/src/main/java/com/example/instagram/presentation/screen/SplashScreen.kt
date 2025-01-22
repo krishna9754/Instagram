@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.instagram.R
 import com.example.instagram.presentation.Authentication.AuthenticationViewModel

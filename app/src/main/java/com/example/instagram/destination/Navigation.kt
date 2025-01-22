@@ -18,7 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,7 +38,7 @@ import com.example.instagram.presentation.Authentication.AuthenticationViewModel
 import com.example.instagram.presentation.screen.SplashScreen
 import com.example.instagram.presentation.screen.FeedsScreen
 import com.example.instagram.presentation.screen.LogInScreen
-import com.example.instagram.presentation.screen.ProfileScreen
+import com.example.instagram.presentation.screen.Profile.ProfileScreen
 import com.example.instagram.presentation.screen.SearchScreen
 import com.example.instagram.presentation.screen.SignUpScreen
 import com.example.instagram.utils.Screens
