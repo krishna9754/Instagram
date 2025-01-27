@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,10 +34,17 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
+import com.example.instagram.R
 import com.example.instagram.destination.BottomNavigationItem
 import com.example.instagram.destination.BottomNavigationMenu
+import com.example.instagram.domain.model.TabModel
 import com.example.instagram.presentation.Authentication.UserViewModel
+import com.example.instagram.presentation.screen.Profile.Components.ActionButton
+import com.example.instagram.presentation.screen.Profile.Components.MyProfile
+import com.example.instagram.presentation.screen.Profile.Components.PostSection
+import com.example.instagram.presentation.screen.Profile.Components.ProfileStats
 import com.example.instagram.presentation.screen.Profile.Components.RoundedImage
+import com.example.instagram.presentation.screen.Profile.Components.TabView
 import com.example.instagram.utils.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,8 +114,47 @@ fun ProfileScreen(navController: NavHostController) {
                                     horizontalArrangement = Arrangement.SpaceAround,
                                     modifier = Modifier.weight(6.5f)
                                 ){
-
+                                    ProfileStats(numberText = "111", text = "Posts", navController = navController)
+                                    ProfileStats(numberText = obj.followers, text = "Follower", navController = navController)
+                                    ProfileStats(numberText = obj.following, text = "Following", navController = navController)
                                 }
+                            }
+                        }
+                        MyProfile(
+                            displayName = obj.name,
+                            bio = obj.bio,
+                            url = obj.url
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            modifier = Modifier.padding(horizontal = 20.dp)
+                        ) {
+                            ActionButton(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(0.45f)
+                                    .height(35.dp),
+                                text = "Edit Profile",
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        TabView(tabModels = listOf(
+                            TabModel(image = painterResource(id = R.drawable.facebook), text = "post"),
+                            TabModel(image = painterResource(id = R.drawable.facebook), text = "post"),
+                            TabModel(image = painterResource(id = R.drawable.facebook), text = "post"),
+                        )){
+                            selectedTabIndex = it
+                        }
+                        when(selectedTabIndex){
+                            0 -> {
+                                PostSection(post = listOf(
+                                    painterResource(id = R.drawable.ic_launcher_background),
+                                    painterResource(id = R.drawable.ic_launcher_background),
+                                    painterResource(id = R.drawable.ic_launcher_background)
+                                ),
+                                    modifier = Modifier.fillMaxWidth().padding(5.dp)
+                                )
                             }
                         }
                     }
@@ -115,7 +163,7 @@ fun ProfileScreen(navController: NavHostController) {
         }
 
         is Response.Error -> {
-
+//            Toast(message = response.message)
         }
     }
 
